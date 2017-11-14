@@ -19,39 +19,13 @@ def getTweets():
      x = t.statuses.home_timeline(screen_name="putscreennamehere") 
      return x
 
-     def tweet(): 
-         global entryWidget
-        
-         if entryWidget.get().strip() == "":
-             print("Empty") 
-         else:
-             t.statuses.update(status=entryWidget.get().strip())
-             entryWidget.delete(0,END)
-             print("working")
 
 t = Twitter( auth=OAuth('929748215058042883-eVIkYLyUIe6Uzm3gKiaXMTCSrQMUMNd', 'TaXvz7PhV9cOcrolPtcy4aBhXrpuXc0jjdG0Urouvz4Zo', 'aipWkJx95L2yxLw1Ud7tJggaY', '8e9LBVAuLDrULNanjxs5UQj4DMRnQyngd5ERxWIoALZlJos3vu'))
 numberOfTweets =20
 
 master = Tk()
 showTweets(getTweets(), numberOfTweets)
-
-master.title("Tkinter Entry Widget")
-master["padx"] = 40
-master["pady"] = 20
-# Create a text frame to hold the text Label and the Entry widget
-textFrame = Frame(master)
-#Create a Label in textFrame
-entryLabel = Label(textFrame)
-entryLabel["text"] = "Make a new Tweet:"
-entryLabel.pack(side=LEFT)
-# Create an Entry Widget in textFrame
-entryWidget = Entry(textFrame)
-entryWidget["width"] = 50
-entryWidget.pack(side=LEFT)
-textFrame.pack()
-
-
-
+master.title("tweets")
 
 @app.route('/')
 def index():
@@ -59,8 +33,8 @@ def index():
 
 @app.route('/home')
 def home():
-    tweets = cursor.execute("SELECT * FROM tweet")
-        return render_template('home.html',tweets= tweets)
+        tweets = cursor.execute("SELECT * FROM tweet")
+        return render_template('home.html')
 
 if __name__ == '__main__':
     master.mainloop()
